@@ -1,0 +1,58 @@
+version: "2.0"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: cumprimento
+  - action: utter_cumprimento
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: cumprimento
+  - action: utter_cumprimento
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: cumprimento
+  - action: utter_cumprimento
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_tchau
+
+- story: order_story_1
+  steps:
+  - intent: cumprimento
+  - action: utter_cumprimento
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+  - slot_was_set:
+    - requested_slot: symbol_code
+  - slot_was_set:
+    - symbol_code: PETR4
+  - slot_was_set:
+    - requested_slot: symbol_type
+  - slot_was_set:
+    - symbol_type: compra
+  - slot_was_set:
+      - requested_slot: symbol_qtty
+  - slot_was_set:
+      - symbol_qtty: 100
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_slots_values
+  - intent: afirmar
+  - action: utter_um_momento
+  - action: action_create_order

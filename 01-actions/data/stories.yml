@@ -35,3 +35,54 @@ stories:
   - action: utter_greet
   - intent: give_time
   - action: action_show_time
+
+- story: path random joke
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: random_joke
+    - action: action_random
+
+- story: name path
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: tell_name
+    - action: utter_ask_name
+    - intent: give_name
+    - action: action_receive_name
+    - intent: repeat_name
+    - action: action_say_name
+
+- story: interactive_story_1
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: tell_name
+    - action: utter_ask_name
+    - intent: give_name
+    - action: action_receive_name
+    - slot_was_set:
+        - name: vincent
+    - intent: repeat_name
+    - action: action_say_name
+    - intent: tell_name
+    - action: utter_ask_name
+    - intent: give_name
+    - action: action_receive_name
+    - slot_was_set:
+        - name: jenny
+    - intent: repeat_name
+    - action: action_say_name
+    - intent: goodbye
+    - action: utter_goodbye
+
+
+- story: symbol info path
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: symbol_info
+    - action: utter_ask_symbol
+    - intent: symbol_code
+    - action: action_symbol_info

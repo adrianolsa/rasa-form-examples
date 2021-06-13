@@ -24,6 +24,11 @@ It helps to understand custom actions and slots before we talk about forms. In t
 
 Code can be found in the `01-actions` folder.
 
+Comandos:
+
+>cd D:\rasa\rasa2\rasa-form-examples\01-actions
+>rasa run actions
+
 ## 2. Slots 
 
 It helps to understand custom actions and slots before we talk about forms. In this simple bot we show how they work by keeping track of a users name. 

@@ -1,0 +1,64 @@
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+intents:
+- cumprimento
+- deny
+- request_order
+- tchau
+- affirm
+- mood_great
+- mood_unhappy
+- bot_challenge
+- confirmar
+
+forms:
+  order_form:
+    symbol_code:
+    - type: from_text
+    symbol_type:
+    - type: from_text
+    symbol_qtty:
+      - type: from_text
+slots:
+  symbol_code:
+    type: text
+  symbol_type:
+    type: text
+  symbol_qtty:
+    type: float
+responses:
+  utter_cumprimento:
+  - text: Hey! How are you?
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_tchau:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_symbol_code:
+  - text: Qual papel?
+  utter_ask_symbol_type:
+  - text: Compra ou venda?
+  utter_ask_symbol_qtty:
+    - text: Quantidade?
+  utter_submit:
+  - text: Ok. Thanks!
+  utter_slots_values:
+  - text: Você quer fazer a {symbol_type} de {symbol_qtty} {symbol_code}?
+  utter_um_momento:
+    - text: Um momento por favor!
+
+actions:
+- utter_cumprimento
+- utter_slots_values
+- utter_submit
+- validate_order_form
+- action_create_order

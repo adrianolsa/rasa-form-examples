@@ -15,6 +15,7 @@ class ActionReceiveName(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         text = tracker.latest_message['text']
+        print(text)
         dispatcher.utter_message(text=f"I'll remember your name {text}!")
         return [SlotSet("name", text)]
 

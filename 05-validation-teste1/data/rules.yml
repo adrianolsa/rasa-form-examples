@@ -1,0 +1,34 @@
+version: "2.0"
+
+rules:
+
+- rule: Say tchau anytime the user says tchau
+  steps:
+  - intent: tchau
+  - action: utter_tchau
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Activate form
+  steps:
+  - intent: request_order
+  - action: order_form
+  - active_loop: order_form
+
+- rule: Submit form
+  condition:
+  - active_loop: order_form
+  steps:
+  - action: order_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit
+  - action: utter_slots_values
+  - intent: confirmar
+  - action: utter_um_momento
+  - action: action_create_order
+
