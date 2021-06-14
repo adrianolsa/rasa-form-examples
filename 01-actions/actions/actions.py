@@ -38,25 +38,6 @@ class ActionRandom(Action):
             dispatcher.utter_message(joke)  # send the message back to the user
             return []
 
-# class ActionReceiveName(Action):
-#
-#     def name(self) -> Text:
-#         return "action_receive_name"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#             symbol = tracker.latest_message['text']
-#             request = json.loads(requests.get("http://localhost:8080/api/stocks/info/"+{symbol}).text)
-# #             joke = request["value"][
-# #                 "joke"
-# #             ]  # extract a joke from returned json response
-#             print(request)
-#             dispatcher.utter_message(request)  # send the message back to the user
-#             return [SlotSet("name", symbol)]
-
-
 class ActionReceiveName(Action):
 
     def name(self) -> Text:

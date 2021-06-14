@@ -31,7 +31,7 @@ class ValidateNameForm(FormValidationAction):
         symbol_code = slot_value
 
         try:
-            request = requests.get("http://localhost:8080/api/stocks/info/"+symbol_code)
+            request = requests.get("https://api.rendacontinua.com/api/stocks/info/"+symbol_code)
             if request.status_code == 200:
                 print ("Status 200")
             else:
