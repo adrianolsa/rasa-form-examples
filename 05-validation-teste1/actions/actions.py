@@ -28,6 +28,17 @@ class ValidateNameForm(FormValidationAction):
 
         # If the name is super short, it might be wrong.
         print(f"symbol code given = {slot_value} length = {len(slot_value)}")
+        symbol_code = slot_value
+
+        try:
+            request = requests.get("http://localhost:8080/api/stocks/info/"+symbol_code)
+            if request.status_code == 200:
+                print ("Status 200")
+            else:
+                print("Status code: "+ request.status_code)
+        except:
+            print("An exception occurred")
+
         if len(slot_value) <= 2:
             dispatcher.utter_message(text=f"That's a very short name. I'm assuming you mis-spelled.")
             return {"symbol_code": None}
@@ -75,22 +86,28 @@ class ActionCreateOrder(Action):
 
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
+        # recebe em cada variavel o valor preenchido no slot
         symbol_code = tracker.get_slot("symbol_code")
         symbol_type = tracker.get_slot("symbol_type")
         symbol_qtty = tracker.get_slot("symbol_qtty")
 
+        # cria um objeto com os atributos
         order = Order(symbol_code, symbol_type, symbol_qtty)
+        # imprimi o objeto somente para teste
         order.printOrder()
 
-
+        # converte o objeto "order" em json
         jsonStr = json.dumps(order.__dict__)
+        # imprimi somente para teste
         print(jsonStr)
 
+        # faz requisição para o sistema
+        # url = http://localhost:8080/api/order/bot
+        # parametro (json) = jsonStr
+        # headers (opcional) = cabeçalho indicando que o parametro enviado no método POST é um json
         response = requests.post("http://localhost:8080/api/order/bot", data=jsonStr, headers=headers)
 
+        # responde no chat do rasa o conteúdo devolvido pelo sistema
         dispatcher.utter_message(text=f"{response.content}!")
-        # if not name:
-        #     dispatcher.utter_message(text="I don't know your name.")
-        # else:
-        #     dispatcher.utter_message(text=f"Your name is {name}!")
+
         return []

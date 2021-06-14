@@ -53,6 +53,6 @@ stories:
   - active_loop: null
   - action: utter_submit
   - action: utter_slots_values
-  - intent: afirmar
+  - intent: confirmar
   - action: utter_um_momento
   - action: action_create_order
