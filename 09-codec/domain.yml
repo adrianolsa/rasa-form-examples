@@ -1,0 +1,91 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- cumprimento:
+    use_entities: true
+- deny:
+    use_entities: true
+- request_rg:
+    use_entities: true
+- tchau:
+    use_entities: true
+- affirm:
+    use_entities: true
+- mood_great:
+    use_entities: true
+- mood_unhappy:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- confirmar:
+    use_entities: true
+entities: []
+slots:
+  militar_patente:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  militar_nome_guerra:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  militar_obm:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_cumprimento:
+  - text: Oi! Como o Sr. está?
+  utter_cheer_up:
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: 'Here is something to cheer you up:'
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_tchau:
+  - text: Até logo
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_militar_patente:
+  - text: Qual o posto/graduação?
+  utter_ask_militar_nome_guerra:
+  - text: Qual o nome de guerra?
+  utter_ask_militar_obm:
+  - text: Qual quartel este militar trabalha?
+  utter_wrong_patente:
+  - text: Lamento. Não consegui entender qual patente. Por favor, tente a sigla da patente.
+  utter_submit:
+  - text: Ok. Obrigado!
+  utter_slots_values:
+  - text: Você quer saber o RG do {militar_patente} {militar_nome_guerra} do {militar_obm}?
+  utter_um_momento:
+  - text: Um momento por favor!
+actions:
+- utter_cumprimento
+- utter_slots_values
+- utter_submit
+- validate_militar_form
+- action_find_rg
+forms:
+  militar_form:
+    required_slots:
+      militar_nome_guerra:
+      - type: from_text
+      militar_obm:
+      - type: from_text
+      militar_patente:
+      - type: from_text
+e2e_actions: []
